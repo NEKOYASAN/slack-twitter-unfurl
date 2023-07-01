@@ -1,0 +1,10 @@
+name = "slack-twitter-unfurl"
+main = "src/worker.ts"
+compatibility_date = "2023-07-01"
+
+[[queues.producers]]
+queue = "slack-twitter-unfurl"
+binding = "SLACK_TWITTER_UNFURL_QUEUE"
+
+[[queues.consumers]]
+queue = "slack-twitter-unfurl"
