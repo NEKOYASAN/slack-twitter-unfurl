@@ -73,20 +73,21 @@ export default {
 					const responseJson = await response.json();
 					// responseに対して型ガード
 					if (isTwitterSyndicationAPIJsonResponse(responseJson)) {
+						const { data } = responseJson;
 						return {
 							link: link.url,
 							color: '#8c8c8c',
-							author_icon: responseJson.user.profile_image_url_https,
-							author_name: `${responseJson.user.name} @${responseJson.user.screen_name}`,
-							author_link: `https://twitter.com/i/user/${responseJson.user.id_str}`,
-							text: responseJson.text,
+							author_icon: data.user.profile_image_url_https,
+							author_name: `${data.user.name} @${data.user.screen_name}`,
+							author_link: `https://twitter.com/i/user/${data.user.id_str}`,
+							text: data.text,
 							footer_icon: 'https://a.slack-edge.com/bv1-10/twitter_pixel_snapped_32-620d73c.png',
 							footer: 'Twitter',
-							ts: `${dayjs(responseJson.created_at).unix()}`,
-							...(responseJson.mediaDetails &&
-							responseJson.mediaDetails[0] &&
-							responseJson.mediaDetails[0].media_url_https
-								? { image_url: responseJson.mediaDetails[0].media_url_https }
+							ts: `${dayjs(data.created_at).unix()}`,
+							...(data.mediaDetails &&
+							data.mediaDetails[0] &&
+							data.mediaDetails[0].media_url_https
+								? { image_url: data.mediaDetails[0].media_url_https }
 								: {}),
 						};
 					}
