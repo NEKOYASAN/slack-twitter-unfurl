@@ -15,11 +15,13 @@ export interface TwitterSyndicateAPIMediaDetail {
 }
 
 export interface TwitterSyndicationAPIJsonResponse {
-	id_str: string;
-	text: string;
-	created_at: string;
-	user: TwitterSyndicateAPIUser;
-	mediaDetails: TwitterSyndicateAPIMediaDetail[];
+	data: {
+		id_str: string;
+		text: string;
+		created_at: string;
+		user: TwitterSyndicateAPIUser;
+		mediaDetails: TwitterSyndicateAPIMediaDetail[];
+	}
 }
 
 export const isTwitterSyndicationAPIJsonResponse = (
@@ -28,9 +30,9 @@ export const isTwitterSyndicationAPIJsonResponse = (
 	return (
 		!!responseJson &&
 		typeof responseJson === 'object' &&
-		!!(responseJson as TwitterSyndicationAPIJsonResponse).text &&
-		!!(responseJson as TwitterSyndicationAPIJsonResponse).user &&
-		!!(responseJson as TwitterSyndicationAPIJsonResponse).id_str
+		!!(responseJson as TwitterSyndicationAPIJsonResponse).data.text &&
+		!!(responseJson as TwitterSyndicationAPIJsonResponse).data.user &&
+		!!(responseJson as TwitterSyndicationAPIJsonResponse).data.id_str
 	);
 };
 
